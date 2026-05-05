@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+struct S {
+    int id;
+    string name;
+    float cgpa;
+};
+
+int main() {
+    int n, key;
+    cin >> n;
+
+    S* a = new S[n];
+
+    for (int i = 0; i < n; i++)
+        cin >> a[i].id >> a[i].name >> a[i].cgpa;
+
+    // Linear Search
+    cin >> key;
+    for (int i = 0; i < n; i++)
+        if (a[i].id == key)
+            cout << a[i].name << endl;
+
+    // Sort (for binary)
+    for (int i = 0; i < n; i++)
+        for (int j = i + 1; j < n; j++)
+            if (a[i].id > a[j].id)
+                swap(a[i], a[j]);
+
+    // Binary Search
+    cin >> key;
+    int l = 0, h = n - 1;
+
+    while (l <= h) {
+        int m = (l + h) / 2;
+        if (a[m].id == key) {
+            cout << a[m].name;
+            break;
+        }
+        else if (key > a[m].id) l = m + 1;
+        else h = m - 1;
+    }
+
+    delete[] a;
+}
